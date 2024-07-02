@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
+
+
+    <title>Register</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form method="POST" action="{{ url_for('register') }}">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.username.label }}
+            {{ form.username(size=20) }}
+        </div>
+        <div>
+            {{ form.email.label }}
+            {{ form.email(size=20) }}
+        </div>
+        <div>
+            {{ form.password.label }}
+            {{ form.password(size=20) }}
+        </div>
+        <div>
+            {{ form.confirm_password.label }}
+            {{ form.confirm_password(size=20) }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+    <a href="{{ url_for('login') }}">Login</a>
+</body>
+</html>

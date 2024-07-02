@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
+    <style>
+        /* Additional CSS for specific styling */
+        #uploadedPatientImagePreview {
+            max-width: 200px; /* Set a standard maximum width */
+            height: auto;
+            display: none; /* Initially hide the image */
+            margin-top: 10px;
+        }
+        
+        .upload-label {
+            background-color: #3b8ecd; /* Light blue background for upload label */
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Patient Form</h1>
+    
+    <form action="/evaluate" method="post" enctype="multipart/form-data" id="uploadForm">
+        
+        <!-- <label for="patientImage">Patient's Display Picture:</label>
+        <label class="upload-label" for="patientImageInput">Choose File</label>
+        <input type="file" name="patient_dp" accept="image/*" required id="patientImageInput" onchange="previewImage(event, 'patient_dp')">
+        <img id="uploadedPatientImagePreview" alt="Uploaded Patient Image Preview"> -->
+
+        <br>
+        <br>
+        
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="f_h_name">Father Name/Husband Name</label>
+        <input type="text" id="f_h_name" name="f_h_name" required>
+        
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" required>
+        
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="none">None</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        
+        <label for="mr_number">MR. No:</label>
+        <input type="number" id="mr_number" name="mr_number" required>
+        
+        <label for="comorbirds">Comborbirds</label>
+        <input type="text" id="comorbirds" name="comorbirds" required>
+
+        <label for="presenting_complain">Presenting Complain</label>
+        <input type="text" id="presenting_complain" name="presenting_complain" required>
+        
+        
+        <label for="date_of_biopsy">Date Of Biopsy</label>
+        <input type="date" id="date_of_biopsy" name="date_of_biopsy" required>
+        <br>
+        <br>
+
+        <label for="location_of_biopsy">Location Of Biopsy</label>
+        <input type="text" id="location_of_biopsy" name="location_of_biopsy" required>
+        
+        
+        <label for="imageInput">Insert Biopsy:</label>
+        <label class="upload-label" for="imageInput">Choose File</label>
+        <input type="file" name="image" accept="image/*" required id="imageInput" onchange="previewImage(event)">
+        <img id="uploadedImagePreview" alt="Uploaded Image Preview" style="display: none; max-width: 100%; margin-top: 10px;">
+        
+        <p id="errorMessage"></p>
+        
+        <br>
+        <br>
+        <button type="submit" id="evaluateButton" onclick="evaluateImage()">Evaluate</button>
+    </form>
+
+    <script>
+        function previewImage(event, type) {
+            const fileInput = event.target;
+            const uploadedImagePreview = type === 'patient_dp' ? document.getElementById('uploadedPatientImagePreview') : document.getElementById('uploadedImagePreview');
+            const errorMessage = document.getElementById('errorMessage');
+    
+            if (fileInput.files.length > 0) {
+                const reader = new FileReader();
+    
+                reader.readAsDataURL(fileInput.files[0]);
+    
+                reader.onload = function (e) {
+                    const imageFormat = fileInput.files[0].type.toLowerCase();
+                    const validFormats = ['image/jpeg', 'image/jpg', 'image/png'];
+    
+                    if (validFormats.includes(imageFormat)) {
+                        uploadedImagePreview.src = e.target.result;
+                        uploadedImagePreview.style.display = 'block';
+                        errorMessage.style.display = 'none';
+                    } else {
+                        errorMessage.innerHTML = 'Invalid image format. Please upload a jpg, jpeg, or png file.';
+                        errorMessage.style.color = 'orange';
+                        errorMessage.style.display = 'block';
+                        uploadedImagePreview.style.display = 'none';
+                    }
+                };
+            } else {
+                uploadedImagePreview.style.display = 'none';
+                errorMessage.innerHTML = 'Please select an image file.';
+                errorMessage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

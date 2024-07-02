@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Patient Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
+    
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script type="text/javascript" src="static/js/html2canvas.min.js"></script>
+    <script type="text/javascript" src="static/js/html_to_pdf_download.js"></script>
+    
+    <style>
+        /* Optional: Add CSS for table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="complete_page">
+        <div id="content">
+            <h1>Patient Report</h1>
+            <br>
+            <div id="patientDP">
+                <img src="{{ patient_image }}" alt="Patient's Display Picture" style="max-width: 300px; height: 300px; margin: 10px auto; display: block;">
+
+            </div>
+            <br>
+            <div id="patientInfo">
+                <h3>Patient Information</h3>
+                <table>
+
+                    <tr>
+                        <td>Patient Name</td>
+                        <td>{{ request.form.get('name') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                        <td>{{ request.form.get('age') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td>{{ request.form.get('gender') }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2 style="margin-top: 20px; text-align: center;">Histopathology Image</h2>
+            <img src="{{ input_image }}" alt="Histopathology Image">
+            <br>
+
+            <form>
+                <label for="comment">Doctor's Comment:</label><br>
+                <br>
+                <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br><br>
+            </form>
+        </div>
+    </div>
+
+    <button id="downloadPdf" style="display: block; margin: 20px auto;">Download PDF</button>
+
+    <script>
+        // Attach click event to download PDF button
+        document.getElementById('downloadPdf').addEventListener('click', function () {
+            CreatePDFfromHTML(); // Call the function from external script
+        });
+    </script>
+</body>
+
+</html>

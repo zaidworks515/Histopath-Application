@@ -1,0 +1,11 @@
+flask
+tensorflow==2.13.1
+Python-IO
+pybase64
+numpy
+opencv-python
+opencv-contrib-python
+opencv-python-headless
+Werkzeug
+flask-wtf flask-bcrypt
+email-validator

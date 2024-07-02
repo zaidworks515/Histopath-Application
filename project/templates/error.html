@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERROR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
+
+</head>
+<body>
+    <div id="content">
+    <h1>AN ERROR OCCUR</h1>
+    <b><p>{{ error_message }}</p></b>
+    </div>
+
+</body>
+</html>
