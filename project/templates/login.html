@@ -5,37 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
-
-
     <title>Login</title>
 </head>
 <body>
     <h1>Login</h1>
-    
     <form method="POST" action="{{ url_for('login') }}">
         {{ form.hidden_tag() }}
-        <div>
-            {{ form.email.label }}
-            {{ form.email(size=20) }}
+        <div class="form-group">
+            {{ form.username.label }}
+            {{ form.username(class_="form-control", size=20) }}
         </div>
-        <div>
+        <div class="form-group">
             {{ form.password.label }}
-            {{ form.password(size=20) }}
+            {{ form.password(class_="form-control", size=20) }}
         </div>
-        <div>
-            {{ form.submit() }}
+        <div class="">
+            {{ form.submit(class_="btn") }}
+        </div>
+        <br>
+        <br>
+        <div class="form-group">
+            <a href="{{ url_for('register') }}" >Register</a>
         </div>
     </form>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul>
-            {% for category, message in messages %}
-                <li class="alert alert-{{ category }}">{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-
-    <a href="{{ url_for('register') }}">Register</a>
+    <div>
+        {{message}}
+    </div>
 </body>
 </html>

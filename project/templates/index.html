@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Application</title>
+    <title>HSS</title>
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
 </head>
 <body>
-    <h1>Dr. Application</h1>
+    <h1>Histopathology Support System</h1>
     <h1>A Project of SSUET Students (2020F-Batch)</h1>
-    <a href="{{ url_for('register') }}">Register</a>
-    <a href="{{ url_for('login') }}">Login</a>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <form action="">
+        <div class="btn">
+            <a href="{{ url_for('register') }}" class="button signup">Register</a>
+        </div>
+        
+        <br>
+        
+        <div class="btn">   
+            <a href="{{ url_for('login') }}" class="button signin">Login</a>
+        </div>
+    </form>
     
 </body>
 </html>

@@ -1,0 +1,123 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f7fc; /* Light blue background */
+    color: #333; /* Text color */
+}
+
+h1, h2, h3, h4 {
+    color: #3b8ecd; /* Light blue text color */
+    text-align: center; /* Center headings */
+    margin-top: 20px;
+}
+
+/* Content Styling */
+#complete_page {
+    margin: 20px auto; /* Center align the content */
+    max-width: 800px; /* Limit content width */
+    padding: 20px;
+    background-color: #ffffff; /* White background for content */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+#content {
+    padding: 20px; /* Padding inside content */
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    text-align: left; /* Align table content to the left */
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Image Styling */
+img {
+    display: block; /* Center align images */
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+/* Form Styling */
+form {
+    text-align: center; /* Center align form elements */
+    margin-top: 20px;
+}
+
+textarea {
+    width: 100%; /* Full width textarea */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Button Container Styling */
+.buttons-container {
+    display: flex; /* Flex container for buttons */
+    justify-content: center; /* Center align buttons horizontally */
+    margin-top: 20px;
+}
+
+/* Button Styling */
+#downloadPdf,
+#new_report,
+#logout {
+    flex: 1; /* Equal width for all buttons */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    width: 500px; /* Fixed width */
+    height: 50px; /* Fixed height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#downloadPdf {
+    background-color: #3b8ecd; /* Light blue button */
+    color: white;
+}
+
+#downloadPdf:hover {
+    background-color: #1e70bf; /* Darker blue on hover */
+}
+
+#new_report {
+    background-color: #8bc34a; /* Light green button */
+    color: white;
+}
+
+#new_report:hover {
+    background-color: #689f38; /* Darker green on hover */
+}
+
+#logout {
+    background-color: #f44336; /* Red button */
+    color: white;
+}
+
+#logout:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}

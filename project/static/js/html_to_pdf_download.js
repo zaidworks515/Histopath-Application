@@ -25,6 +25,26 @@ function CreatePDFfromHTML() {
         // Add the image with the background color
         pdf.addImage(imgData, 'JPEG', top_left_margin, top_left_margin, HTML_Width, HTML_Height);
 
+        // Save the PDF locally
         pdf.save("patient_report.pdf");
+
+        // Send the PDF to the server
+        var pdfBlob = pdf.output('blob');
+        var mrNumber = document.getElementById('mr_number').value; // Get MR number
+
+        var formData = new FormData();
+        formData.append('pdf', pdfBlob, 'patient_report.pdf');
+        formData.append('mr_number', mrNumber); // Append MR number
+
+        fetch('/upload_pdf', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                console.log('PDF uploaded successfully.');
+            } else {
+                console.error('PDF upload failed.');
+            }
+        });
     });
 }
