@@ -199,7 +199,7 @@ def model_implementation(image):
         model.allocate_tensors()
 
         input_image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
-        input_image_rgb = input_image
+        input_image_rgb = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
         input_image_normalized = input_image_rgb.astype(np.float32) / 255.0
         input_image_array = np.expand_dims(input_image_normalized, axis=0)
 
@@ -223,7 +223,7 @@ def model_implementation(image):
 
         # Save input image for logging or reference
         input_image_path = os.path.join(input_image_save, 'input_image.jpg')
-        cv2.imwrite(input_image_path, input_image_rgb)  # Save RGB image
+        cv2.imwrite(input_image_path, input_image)  
 
      
         return input_image_path, model_prediction

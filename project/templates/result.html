@@ -13,24 +13,33 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/html2canvas.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/html_to_pdf_download.js') }}"></script>
-    
+
+
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+            width: 80%; /* Adjust the width as needed */
+            margin: 20px auto; /* Center the table with some top and bottom margin */
+            border-collapse: collapse; /* Collapse table borders into a single border */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better separation */
         }
 
         th, td {
-            border: 1px solid #dddddd;
+            border: 1px solid #ddd; /* Gray border for cells */
+            padding: 10px; /* Padding inside cells */
             text-align: left;
-            padding: 8px;
+            margin-left: auto; /* Align text to the left within cells */
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #f2f2f2; /* Light gray background for headers */
         }
     </style>
+    
+
 </head>
 <body>
     <div id="complete_page">
