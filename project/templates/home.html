@@ -5,80 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home-style.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
-    
-    <style>
-        /* Inline CSS for button alignment and positioning */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff; /* White background */
-            color: #333; /* Text color */
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center horizontally */
-            justify-content: center; /* Center vertically */
-            min-height: 100vh; /* Ensure full height */
-            position: relative; /* Required for absolute positioning */
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center; /* Center buttons horizontally */
-            align-items: center; /* Center buttons vertically */
-            gap: 20px; /* Space between buttons */
-        }
-
-        form {
-            display: block;
-            text-align: center;
-            margin: 20px auto;
-        }
-
-        button {
-            display: block;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            cursor: pointer;
-            background-color: #5bc0de; /* Light blue button */
-            width: 200px; /* Fixed width for buttons */
-            text-align: center;
-            font-size: 16px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #3b8ecd; /* Darker blue on hover */
-        }
-
-        #logout {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background-color: #dc3545; /* Red color for logout button */
-        }
-    </style>
 </head>
 <body>
-    
-    <div class="button-container">
-        <form action="/form" method="get">
-            <button type="submit" id="new_report">New Report</button>
-        </form>
-
-        <form action="/records" method="get">
-            <button type="submit" id="records">Records</button>
+    <div class="container">
+        <div class="content-wrapper">
+            <img src="static/css/22-removebg-preview.png" alt="Centered Image" class="center-image">
+            <div class="btn-family">
+                <a href="{{ url_for('patient_form') }}" class="button">New Report</a>
+                <a href="{{ url_for('records') }}" class="button">Records</a>
+            </div>
+        </div>
+        <form action="/logout" method="get" class="logout-form">
+            <button type="submit" class="fancy" id="logout">
+                <span class="top-key"></span>
+                <span class="text">Logout</span>
+                <span class="bottom-key-1"></span>
+                <span class="bottom-key-2"></span>
+            </button>
         </form>
     </div>
-
-    <form action="/logout" method="get">
-        <button type="submit" id="logout">Logout</button>
-    </form>
-
 </body>
 </html>

@@ -4,128 +4,215 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Report</title>
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/report-style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jspdf.min.js') }}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/html2canvas.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/html_to_pdf_download.js') }}"></script>
-
-
+    
+    
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Additional CSS for specific styling */
+        #uploadedPatientImagePreview {
+            max-width: 200px; /* Set a standard maximum width */
+            height: auto;
+            display: none; /* Initially hide the image */
+            margin-top: 10px;
         }
-
-        table {
-            width: 80%; /* Adjust the width as needed */
-            margin: 20px auto; /* Center the table with some top and bottom margin */
-            border-collapse: collapse; /* Collapse table borders into a single border */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better separation */
+        
+        .upload-label {
+            background-color: #3b8ecd; /* Light blue background for upload label */
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
         }
-
-        th, td {
-            border: 1px solid #ddd; /* Gray border for cells */
-            padding: 10px; /* Padding inside cells */
-            text-align: left;
-            margin-left: auto; /* Align text to the left within cells */
+    
+        /* Flex container for form groups */
+        .form-group-flex {
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap */
+            justify-content: space-between;
         }
-
-        th {
-            background-color: #f2f2f2; /* Light gray background for headers */
+    
+        /* Flex items (individual form groups) */
+        .form-group-flex > .form-group {
+            flex-basis: calc(50% - 10px); /* 50% width for each item with margin */
+            margin-right: 10px; /* Adjust spacing between form groups */
+            margin-bottom: 10px; /* Adjust vertical spacing */
+        }
+    
+        /* Clearfix for form groups */
+        .form-group-flex::after {
+            content: '';
+            flex: 0 0 100%; /* Force clear */
+        }
+    
+        /* Interactive feedback */
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group select {
+            width: 100%; /* Full width for input fields */
+            padding: 10px; /* Preserve padding */
+            margin: 8px 0; /* Preserve margin */
+            border: 1px solid #ccc; /* Preserve border */
+            border-radius: 5px; /* Preserve border radius */
+            box-sizing: border-box; /* Ensure padding and border are included in width */
+            font-size: 14px; /* Adjust font size */
+            height: 40px; /* Adjust height as needed */
+        }
+    
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #3b8ecd; /* Highlight border color on focus */
+            box-shadow: 0 0 5px rgba(59, 142, 205, 0.5); /* Add shadow on focus */
+        }
+    
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    
+        .error-message {
+            color: red;
+            margin-top: 5px;
         }
     </style>
     
-
+    
 </head>
 <body>
-    <div id="complete_page">
-        <div id="content">
-            <h1>Patient Report</h1>
-            <br>
-            <br>
-            <div id="patientInfo">
-                <h3>Details</h3>
-                <table>
-                    <tr>
-                        <td>Patient Name</td>
-                        <td>{{ request.form.get('name') }}</td>
-                    </tr>
-                    <tr>
-                        <td>Father Name/Husband Name</td>
-                        <td>{{ request.form.get('f_h_name') }}</td>
-                    </tr>
-                    <tr>
-                        <td>Age</td>
-                        <td>{{ request.form.get('age') }}</td>
-                    </tr>
-                    <tr>
-                        <td>Gender</td>
-                        <td>{{ request.form.get('gender') }}</td>
-                    </tr>
-                    <tr>
-                        <td>MR. Number</td>
-                        <td>{{ request.form.get('mr_number') }}</td>
-                    </tr>
-                    <tr>
-                        <td>Comorbirds</td>
-                        <td>{{ request.form.get('comorbirds') }}</td>
-                    </tr>
-                    <tr>
-                        <td>Presenting Complain</td>
-                        <td>{{ request.form.get('presenting_complain') }}</td>
-                    </tr>
-                    <tr>
-                        <td>Date Of Biopsy</td>
-                        <td>{{ request.form.get('date_of_biopsy') }}</td>
-                    </tr>
-                    <tr>
-                        <td>Location Of Biopsy</td>
-                        <td>{{ request.form.get('location_of_biopsy') }}</td>
-                    </tr>
-                </table>
-            </div>
+    <div class="content">
+        <div style="text-align: left; margin-top: 30px; margin-bottom: 20px; margin-left: 3px;">
+            <img src="{{ url_for('static', filename='css/22-removebg-preview.png') }}" alt="Logo" style="max-width: 300px; max-height: 200px;">
+        </div>   
+    
+        <h1>Patient Report</h1>
 
-            <h2 style="margin-top: 20px; text-align: center;">Histopathology Image</h2>
-            <img src="{{ input_image }}" alt="Histopathology Image">
-            <br>
-            <br>
-            <h4>Predicted Output: {{model_prediction}}</h4>
-            <br>
-            <br>
-            <form>
-                <label for="comment">Doctor's Comment:</label><br>
-                <br>
-                <textarea id="comment" name="comment" rows="4" cols="50" placeholder="Write your comments here..." style="background-color: white; border: none; color: black;"></textarea><br><br>
-            </form>
+        <form action="" class="patient-form">
+        
+        <div class="form-group-flex">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="{{ request.form.get('name') }}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="f_h_name">Father/Husband Name</label>
+                <input type="text" id="f_h_name" name="f_h_name" value="{{ request.form.get('f_h_name') }}" readonly>
+            </div>
         </div>
+        
+        <div class="form-group-flex">
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" value="{{ request.form.get('age') }}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <input type="text" id="gender" name="gender" value="{{ request.form.get('gender') }}" readonly>
+            </div>
+        </div>
+        
+        <div class="form-group-flex">
+            <div class="form-group">
+                <label for="mr_number">MR. No:</label>
+                <input type="number" id="mr_number" name="mr_number" value="{{ request.form.get('mr_number') }}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="comorbirds">Comorbids</label>
+                <input type="text" id="comorbirds" name="comorbirds" value="{{ request.form.get('comorbirds') }}" readonly>
+            </div>
+        </div>
+        
+        <div class="form-group-flex">
+            <div class="form-group">
+                <label for="presenting_complain">Presenting Complaint</label>
+                <input type="text" id="presenting_complain" name="presenting_complain" value="{{ request.form.get('presenting_complain') }}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="date_of_biopsy">Date Of Biopsy</label>
+                <input type="date" id="date_of_biopsy" name="date_of_biopsy" value="{{ request.form.get('date_of_biopsy') }}" readonly>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="location_of_biopsy">Location Of Biopsy</label>
+            <input type="text" id="location_of_biopsy" name="location_of_biopsy" value="{{ request.form.get('location_of_biopsy') }}" readonly>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <h2>Histopathology Image</h2>
+            <img src="{{ input_image }}" alt="Histopathology Image" style="display: block; margin: 0 auto;">
+            <h4>Predicted Output: {{ model_prediction }}</h4>
+        </div>
+        <br>
+        <br>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <label for="comment">Doctor's Comment:</label><br><br>
+            <textarea id="comment" name="comment" rows="4" cols="50" placeholder="Write your comments here..." style="background-color: white; border: none; color: black; width: 80%; max-width: 600px; margin: 0 auto;"></textarea><br><br>
     </div>
-    <br>
-    <br>
-    <br>
-    <!-- Hidden input for MR number -->
+
+</form>
+
+</div>
+
+
+<br>
+<br>
+<!-- Hidden input for MR number -->
     <input type="hidden" id="mr_number" value="{{ request.form.get('mr_number') }}">
 
-    <div class="buttons-container">
-        <form action="/form" method="get">
-            <button type="submit" id="new_report">New Report</button>
-        </form>
-        
-        <button id="downloadPdf">Download Report</button>
-        
-        <form action="/logout" method="get">
-            <button type="submit" id="logout">Logout</button>
-        </form>
+    
+    <div class="btn-family">
+        <div>
+            <a href="{{ url_for('patient_form') }}" class="fancy">
+                <span class="text">New Report</span>
+            </a>
+        </div>
+
+        <div>
+            <a href="{{ url_for('records') }}" class="fancy">
+                <span class="text">Saved Reports</span>
+            </a>
+        </div>
+
+        <div>
+            <button id="downloadPdf" class="fancy">
+                <span class="text">Download Report</span>
+            </button>
+        </div>
+     
+      
+    </div>
+    <div style="position: fixed; bottom: 10px; right: 10px;">
+        <a href="{{ url_for('logout') }}" class="fancy" style="text-decoration: none; color: #880808; background-color: red; padding: 10px 20px; border: 2px solid black; border-radius: 5px;">
+            <span class="text">Logout</span>
+        </a>
     </div>
 
-    <script>
-        // Attach click event to download PDF button
-        document.getElementById('downloadPdf').addEventListener('click', function () {
-            CreatePDFfromHTML(); // Call the function from external script
-        });
-    </script>
+
+
+
+<script>
+    // Attach click event to download PDF button
+ // Attach click event to download PDF button
+    document.getElementById('downloadPdf').addEventListener('click', function (event) {
+        event.preventDefault();
+        console.log('Creating PDF...');
+        CreatePDFfromHTML(); // Call the function from external script
+});
+
+</script>
+
+
 </body>
 </html>

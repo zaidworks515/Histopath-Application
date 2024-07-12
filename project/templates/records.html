@@ -2,101 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Records</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/records.css') }}">
+    <title>Doctor Records</title>
     
-    <style>
-        /* General Styling */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f7fc; /* Light blue background */
-            color: #333; /* Text color */
-            text-align: center; /* Center align text */
-        }
-
-        h1 {
-            color: #3b8ecd; /* Light blue text color */
-            margin-top: 20px;
-        }
-
-        ul {
-            list-style-type: none; /* Remove list bullets */
-            padding: 0;
-        }
-
-        ul li {
-            background-color: #ffffff; /* White background for each list item */
-            border-radius: 5px;
-            margin: 10px 0;
-            padding: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
-        }
-
-        ul li a {
-            color: #3b8ecd; /* Link color */
-            text-decoration: none; /* Remove underline */
-        }
-
-        ul li a:hover {
-            text-decoration: underline; /* Underline on hover */
-        }
-
-        a {
-            color: #f44336; /* Red color for links */
-            text-decoration: none; /* Remove underline */
-            display: block;
-            margin-top: 20px;
-        }
-
-        a:hover {
-            text-decoration: underline; /* Underline on hover */
-        }
-
-        /* Logout Button */
-        .logout-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #f44336; /* Red button */
-            color: white;
-            flex: 1; /* Equal width for all buttons */
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 10px;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-            width: 100px; /* Fixed width */
-            height: 50px; /* Fixed height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
-
     <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
 </head>
 <body>
-    <h1>Records for {{ username }}</h1>
+    <div class="navbar">
+        <a href="{{ url_for('home') }}" class="home-btn">Home</a>
+        
+        <div class="right">
+            <form class="search-form" action="{{ url_for('records') }}" method="POST">
+                <input type="text" id="search_term" name="search_term" value="{{ search_term }}" placeholder="Search by Filename">
+                <button type="submit">Search</button>
+            </form> 
+
+            <form action="{{ url_for('records') }}" method="POST" id="deleteForm">
+                <button type="button" onclick="deleteSelectedFiles()">Delete File</button>
+                <input type="hidden" id="selectedFiles" name="selected_files">
+            </form>
+
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <h1>Records for '{{ username }}'</h1>
 
     <ul>
         {% if files %}
             {% for file in files %}
-                {% if file.endswith('.pdf') %}
-                    <li><a href="{{ url_for('view_pdf', filename=file) }}" target="_blank">{{ file }}</a></li>
-                {% endif %}
+                <li>
+                    <input type="checkbox" name="selected_files" value="{{ file[0] }}">
+                    <a href="{{ url_for('view_pdf', pdf_id=file[0]) }}" target="_blank">{{ file[1] }}</a>
+                </li>
             {% endfor %}
         {% else %}
             <li>No PDF files found.</li>
         {% endif %}
     </ul>
 
-    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    <script>
+        function deleteSelectedFiles() {
+            var selectedFiles = document.querySelectorAll('input[name="selected_files"]:checked');
+            var selectedFileIds = [];
+            selectedFiles.forEach(function(file) {
+                selectedFileIds.push(file.value);
+            });
+            document.getElementById('selectedFiles').value = JSON.stringify(selectedFileIds);
+            document.getElementById('deleteForm').submit();
+        }
+    </script>
+
 </body>
 </html>

@@ -5,29 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HSS</title>
     
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="static/css/index.css">
     <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
 </head>
-<body>
-    <h1>Histopathology Support System</h1>
-    <h1>A Project of SSUET Students (2020F-Batch)</h1>
+<body class="container">
+    <div class="content-wrapper">
+        <div class="header">
+            <div class="about-btn">
+                <a href="{{ url_for('about') }}" class="button">About Us</a>
+            </div>
+        </div>
+        <h1 style="font-family: 'sans-serif', sans-serif;">Project of SSUET Students (2020F-Batch)</h1>
+        
+        <br><br>
 
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <form action="">
-        <div class="btn">
-            <a href="{{ url_for('register') }}" class="button signup">Register</a>
+        <img src="static/css/22-removebg-preview.png" alt="Centered Image" class="center-image">
+        
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <form action="" style="display: flex; justify-content: center; align-items: center;">
+                <div class="btn" style="margin-right: 10px;">
+                    <a href="{{ url_for('register') }}" class="fancy" style="display: inline-block;">
+                        <span class="top-key"></span>
+                        <span class="text">Register</span>
+                        <span class="bottom-key-1"></span>
+                        <span class="bottom-key-2"></span>
+                    </a>
+                </div>
+            </form>
+            
+            <form action="" style="display: flex; justify-content: center; align-items: center;">
+                <div class="btn">   
+                    <a href="{{ url_for('login') }}" class="fancy" style="display: inline-block;">
+                        <span class="top-key"></span>
+                        <span class="text">Login</span>
+                        <span class="bottom-key-1"></span>
+                        <span class="bottom-key-2"></span>
+                    </a>
+                </div>
+            </form>
         </div>
         
-        <br>
         
-        <div class="btn">   
-            <a href="{{ url_for('login') }}" class="button signin">Login</a>
-        </div>
-    </form>
-    
+        
+        
+        
+    </div>
 </body>
 </html>

@@ -1,35 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ls.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    
 </head>
 <body>
-    <h1>Login</h1>
-    <form method="POST" action="{{ url_for('login') }}">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.username.label }}
-            {{ form.username(class_="form-control", size=20) }}
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+
+        <div class="signup">
+            <!-- Signup content -->
         </div>
-        <div class="form-group">
-            {{ form.password.label }}
-            {{ form.password(class_="form-control", size=20) }}
+
+        <div class="login">
+            <form method="POST" action="{{ url_for('login') }}">
+                <label for="chk" aria-hidden="true">Login</label>
+                
+                
+                {{ form.hidden_tag() }}
+
+                {{ form.username(class_="form-control", size=20) }}
+
+                {{ form.password(class_="form-control", size=20) }}
+
+                {{ form.submit(class_="btn") }}
+            
+
+                <br>
+                
+                <div style="text-align: center;">
+                    <span>Don't have an account? </span><a href="{{ url_for('register') }}">Signup</a>
+                </div>
+                
+            </form>
+
         </div>
-        <div class="">
-            {{ form.submit(class_="btn") }}
-        </div>
-        <br>
-        <br>
-        <div class="form-group">
-            <a href="{{ url_for('register') }}" >Register</a>
-        </div>
-    </form>
-    <div>
-        {{message}}
     </div>
+        
+        <div class="message">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <script>
+        // Function to fade in an element
+        function fadeIn(element) {
+            element.style.opacity = 0;
+            element.style.display = 'block';
+    
+            (function fade() {
+                var val = parseFloat(element.style.opacity);
+                if (!((val += 0.1) > 1)) {
+                    element.style.opacity = val;
+                    requestAnimationFrame(fade);
+                }
+            })();
+        }
+    
+        // Function to fade out an element
+        function fadeOut(element) {
+            element.style.opacity = 1;
+    
+            (function fade() {
+                if ((element.style.opacity -= 0.1) < 0) {
+                    element.style.display = 'none';
+                } else {
+                    requestAnimationFrame(fade);
+                }
+            })();
+        }
+    
+        // Show flash message with fade-in effect
+        document.addEventListener('DOMContentLoaded', function() {
+            let messageDiv = document.querySelector('.message');
+            if (messageDiv.innerHTML.trim() !== '') {
+                fadeIn(messageDiv);
+                setTimeout(function() {
+                    fadeOut(messageDiv);
+                }, 3000); // Fade out after 3 seconds
+            }
+        });
+    </script>
+    
 </body>
 </html>

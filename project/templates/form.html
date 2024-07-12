@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Form</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/form-style.css') }}">
+    
     <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
     <style>
         /* Additional CSS for specific styling */
@@ -23,84 +24,167 @@
             cursor: pointer;
             margin-left: 10px;
         }
+    
+        /* Flex container for form groups */
+        .form-group-flex {
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap */
+            justify-content: space-between;
+        }
+    
+        /* Flex items (individual form groups) */
+        .form-group-flex > .form-group {
+            flex-basis: calc(50% - 10px); /* 50% width for each item with margin */
+            margin-right: 10px; /* Adjust spacing between form groups */
+            margin-bottom: 10px; /* Adjust vertical spacing */
+        }
+    
+        /* Clearfix for form groups */
+        .form-group-flex::after {
+            content: '';
+            flex: 0 0 100%; /* Force clear */
+        }
+    
+        /* Interactive feedback */
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group select {
+            width: 100%; /* Full width for input fields */
+            padding: 10px; /* Preserve padding */
+            margin: 8px 0; /* Preserve margin */
+            border: 1px solid #ccc; /* Preserve border */
+            border-radius: 5px; /* Preserve border radius */
+            box-sizing: border-box; /* Ensure padding and border are included in width */
+            font-size: 14px; /* Adjust font size */
+            height: 40px; /* Adjust height as needed */
+        }
+    
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #3b8ecd; /* Highlight border color on focus */
+            box-shadow: 0 0 5px rgba(59, 142, 205, 0.5); /* Add shadow on focus */
+        }
+    
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
     </style>
+    
+    
 </head>
 <body>
     <h1>Patient Form</h1>
     
-    <form action="/evaluate" method="post" enctype="multipart/form-data" id="uploadForm" class="patient-form">
-        
-        <!-- <label for="patientImage">Patient's Display Picture:</label>
-        <label class="upload-label" for="patientImageInput">Choose File</label>
-        <input type="file" name="patient_dp" accept="image/*" required id="patientImageInput" onchange="previewImage(event, 'patient_dp')">
-        <img id="uploadedPatientImagePreview" alt="Uploaded Patient Image Preview"> -->
-
+    <form action="/evaluate" method="post" enctype="multipart/form-data" id="uploadForm" class="patient-form" onsubmit="return validateForm()">
+    
         <br>
         <br>
         
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
+        <div class="form-group-flex">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                <div id="nameError" class="error-message"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="f_h_name">Father Name/Husband Name</label>
+                <input type="text" id="f_h_name" name="f_h_name" required>
+                <div id="f_h_nameError" class="error-message"></div>
+            </div>
         </div>
         
-        <div class="form-group">
-            <label for="f_h_name">Father Name/Husband Name</label>
-            <input type="text" id="f_h_name" name="f_h_name" required>
+        <div class="form-group-flex">
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" required>
+                <div id="ageError" class="error-message"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="none">None</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <div id="genderError" class="error-message"></div>
+            </div>
         </div>
         
-        <div class="form-group">
-            <label for="age">Age</label>
-            <input type="number" id="age" name="age" required>
+        <div class="form-group-flex">
+            <div class="form-group">
+                <label for="mr_number">MR. No:</label>
+                <input type="number" id="mr_number" name="mr_number" required>
+                <div id="mr_numberError" class="error-message"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="comorbirds">Comorbids</label>
+                <input type="text" id="comorbirds" name="comorbirds" required>
+                <div id="comorbirdsError" class="error-message"></div>
+            </div>
         </div>
         
-        <div class="form-group">
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender" required>
-                <option value="none">None</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="mr_number">MR. No:</label>
-            <input type="number" id="mr_number" name="mr_number" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="comorbirds">Comorbids</label>
-            <input type="text" id="comorbirds" name="comorbirds" required>
-        </div>
-
-        <div class="form-group">
-            <label for="presenting_complain">Presenting Complaint</label>
-            <input type="text" id="presenting_complain" name="presenting_complain" required>
-        </div>
-        
-        
-        <div class="form-group">
-            <label for="date_of_biopsy">Date Of Biopsy</label>
-            <input type="date" id="date_of_biopsy" name="date_of_biopsy" required>
+        <div class="form-group-flex">
+            <div class="form-group">
+                <label for="presenting_complain">Presenting Complaint</label>
+                <input type="text" id="presenting_complain" name="presenting_complain" required>
+                <div id="presenting_complainError" class="error-message"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="date_of_biopsy">Date Of Biopsy</label>
+                <input type="date" id="date_of_biopsy" name="date_of_biopsy" required>
+                <div id="date_of_biopsyError" class="error-message"></div>
+            </div>
         </div>
         
         <div class="form-group">
             <label for="location_of_biopsy">Location Of Biopsy</label>
             <input type="text" id="location_of_biopsy" name="location_of_biopsy" required>
+            <div id="location_of_biopsyError" class="error-message"></div>
         </div>
-        
-        
-        <div class="form-group">
-            <label>Insert Biopsy:</label>
+
+        <div class="file-upload-form">
+            <label for="imageInput" class="file-upload-label">
+                Insert Biopsy Image <br><br>
+                <div class="file-upload-design">
+                    <svg viewBox="0 0 640 512" height="1em">
+                        <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"></path>
+                    </svg>
+                </div>
+                <input id="imageInput" name="image" required onchange="previewImage(event)" class="custom-file-input" type="file" accept="image/*" style="display: none;">
+                <img id="uploadedImagePreview" alt="Uploaded Image Preview" style="max-width: 100%; margin-top: 10px; display: none;">
+            </label>
+            <div id="imageInputError" class="error-message"></div>
+        </div>
+            
+        </div>
+
+        <!-- <div class="form-group">
+            <label>Upload Biopsy Image:</label>
             <input type="file" name="image" accept="image/*" required id="imageInput" onchange="previewImage(event)">
             <img id="uploadedImagePreview" alt="Uploaded Image Preview" style="display: none; max-width: 100%; margin-top: 10px;">
-        </div>
+            <div id="imageInputError" class="error-message"></div>
+        </div> -->
         
         <p id="errorMessage"></p>
         
         <br>
         <br>
-        <button type="submit" id="evaluateButton" onclick="evaluateImage()" class="btn">Evaluate</button>
+        <button type="submit" id="evaluateButton" onclick="evaluateImage()" class="button" style="display: block; margin: 0 auto;">Evaluate</button>
+
+        <div id="successMessage" class="success-message" style="display: none;">Form submitted successfully!</div>
     </form>
 
     <script>
@@ -122,6 +206,7 @@
                         uploadedImagePreview.src = e.target.result;
                         uploadedImagePreview.style.display = 'block';
                         errorMessage.style.display = 'none';
+                        document.getElementById('imageInputError').innerHTML = '';
                     } else {
                         errorMessage.innerHTML = 'Invalid image format. Please upload a jpg, jpeg, or png file.';
                         errorMessage.style.color = 'orange';
@@ -134,6 +219,133 @@
                 errorMessage.innerHTML = 'Please select an image file.';
                 errorMessage.style.display = 'block';
             }
+        }
+
+        function validateForm() {
+            let isValid = true;
+
+            // Validate name
+            const name = document.getElementById('name').value.trim();
+            if (name === '') {
+                document.getElementById('nameError').innerHTML = 'Name is required.';
+                isValid = false;
+            } else {
+                document.getElementById('nameError').innerHTML = '';
+            }
+
+            // Validate father/husband name
+            const f_h_name = document.getElementById('f_h_name').value.trim();
+            if (f_h_name === '') {
+                document.getElementById('f_h_nameError').innerHTML = 'Father/Husband name is required.';
+                isValid = false;
+            } else {
+                document.getElementById('f_h_nameError').innerHTML = '';
+            }
+
+            // Validate age
+            const age = document.getElementById('age').value.trim();
+            if (age === '') {
+                document.getElementById('ageError').innerHTML = 'Age is required.';
+                isValid = false;
+            } else {
+                document.getElementById('ageError').innerHTML = '';
+            }
+
+            // Validate gender
+            const gender = document.getElementById('gender').value.trim();
+            if (gender === 'none') {
+                document.getElementById('genderError').innerHTML = 'Please select a gender.';
+                isValid = false;
+            } else {
+                document.getElementById('genderError').innerHTML = '';
+            }
+
+            // Validate MR number
+            const mr_number = document.getElementById('mr_number').value.trim();
+            if (mr_number === '') {
+                document.getElementById('mr_numberError').innerHTML = 'MR. No. is required.';
+                isValid = false;
+            } else {
+                document.getElementById('mr_numberError').innerHTML = '';
+            }
+
+            // Validate comorbids
+            const comorbirds = document.getElementById('comorbirds').value.trim();
+            if (comorbirds === '') {
+                document.getElementById('comorbirdsError').innerHTML = 'Comorbids are required.';
+                isValid = false;
+            } else {
+                document.getElementById('comorbirdsError').innerHTML = '';
+            }
+
+            // Validate presenting complaint
+            const presenting_complain = document.getElementById('presenting_complain').value.trim();
+            if (presenting_complain === '') {
+                document.getElementById('presenting_complainError').innerHTML = 'Presenting complaint is required.';
+                isValid = false;
+            } else {
+                document.getElementById('presenting_complainError').innerHTML = '';
+            }
+
+            // Validate date of biopsy
+            const date_of_biopsy = document.getElementById('date_of_biopsy').value.trim();
+            if (date_of_biopsy === '') {
+                document.getElementById('date_of_biopsyError').innerHTML = 'Date of biopsy is required.';
+                isValid = false;
+            } else {
+                document.getElementById('date_of_biopsyError').innerHTML = '';
+            }
+
+            // Validate location of biopsy
+            const location_of_biopsy = document.getElementById('location_of_biopsy').value.trim();
+            if (location_of_biopsy === '') {
+                document.getElementById('location_of_biopsyError').innerHTML = 'Location of biopsy is required.';
+                isValid = false;
+            } else {
+                document.getElementById('location_of_biopsyError').innerHTML = '';
+            }
+
+            // Validate image
+            const imageInput = document.getElementById('imageInput');
+            if (imageInput.files.length === 0) {
+                document.getElementById('imageInputError').innerHTML = 'Please upload an image file.';
+                isValid = false;
+            } else {
+                document.getElementById('imageInputError').innerHTML = '';
+            }
+
+            // Return validity status
+            return isValid;
+        
+            if (isValidForm()) {
+                saveFormData();
+                return true; // Allow form submission
+            } else {
+                return false; // Prevent form submission
+            }
+        }
+
+        function isValidForm() {
+            // Your existing validation logic
+            // Return true if form is valid, false otherwise
+        }
+
+        function saveFormData() {
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                f_h_name: document.getElementById('f_h_name').value.trim(),
+                age: document.getElementById('age').value.trim(),
+                gender: document.getElementById('gender').value.trim(),
+                mr_number: document.getElementById('mr_number').value.trim(),
+                comorbirds: document.getElementById('comorbirds').value.trim(),
+                presenting_complain: document.getElementById('presenting_complain').value.trim(),
+                date_of_biopsy: document.getElementById('date_of_biopsy').value.trim(),
+                location_of_biopsy: document.getElementById('location_of_biopsy').value.trim(),
+                // Add more fields as needed
+            };
+
+            // Store form data in localStorage
+            localStorage.setItem('formData', JSON.stringify(formData));
         }
     </script>
 </body>

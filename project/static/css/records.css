@@ -1,0 +1,184 @@
+/* General Styling */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f0f7fc; /* Light blue background */
+  color: #333; /* Text color */
+  font-family: 'Jost', sans-serif;
+  background: #b3d3ee; /* Fallback */
+  background-color: #89beec; /* Light blue background */
+  color: #333333;
+  background: white url('maroon bg 2.PNG') no-repeat center right fixed; /* Adjusted background position */
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: #d3d3d3; /* Light grey navbar background */
+  overflow: hidden;
+  padding: 2px 0; /* Reduced padding top and bottom */
+  position: fixed; /* Fixed position */
+  width: 100%; /* Full width */
+  top: 0; /* Align to top */
+  z-index: 1000; /* Ensure it's above other content */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space out items */
+}
+
+.navbar a,
+.navbar button {
+  color: #333; /* Text color */
+  text-align: center;
+  padding: 6px 10px; /* Adjusted padding top and bottom */
+  text-decoration: none;
+  font-size: 18px; /* Reduced font size */
+  background: none; /* Ensure no background is applied */
+  border: none; /* Remove border */
+}
+
+.navbar a:hover,
+.navbar button:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar .right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Ensure items are evenly spaced */
+}
+
+.navbar .search-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar input[type="text"] {
+  padding: 4px 8px; /* Adjusted input padding to match button height */
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-right: 8px; /* Margin on the right side */
+  background-color: #f0f2f5; /* Facebook's input background */
+  transition: all 0.3s ease; /* Transition for background color change */
+  height: 25px; /* Ensure height matches button height */
+}
+
+.navbar input[type="text"]:focus {
+  background-color: white; /* Change background on focus */
+}
+
+.navbar button {
+  padding: 6px 12px; /* Adjusted button padding */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px; /* Reduced font size */
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease; /* Transition for background color change */
+  background-color: rgb(160, 156, 156); /* Green button similar to Facebook's */
+  color: white; /* Text color */
+  margin: 0 8px; /* Add margin */
+}
+
+.navbar button:hover {
+  background-color: rgb(119, 116, 116); /* Darker green on hover */
+}
+
+.delete-button {
+  background-color: #f02849; /* Red button */
+  color: white; /* Text color */
+}
+
+.delete-button:hover {
+  background-color: #d81c3f; /* Darker red on hover */
+}
+
+.logout-btn {
+  background-color: #f44336; /* Red button */
+  color: white; /* Text color */
+  padding: 8px 14px; /* Adjusted button padding */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px; /* Reduced font size */
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease; /* Transition for background color change */
+}
+
+.logout-btn:hover {
+  background-color: #880808; /* Darker red on hover */
+}
+
+/* Main Content Styling */
+h1 {
+  color: black; /* Black text color */
+  margin-top: 80px; /* Adjusted margin top */
+  text-align: center;
+}
+
+ul {
+  list-style-type: none; /* Remove list bullets */
+  padding: 0;
+}
+
+ul li {
+  background-color: #ffffff; /* White background for each list item */
+  border-radius: 8px; /* Rounded corners */
+  margin: 10px 0; /* Margin top and bottom */
+  padding: 15px; /* Padding inside each list item */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+ul li a {
+  color: #385898; /* Link color similar to Facebook's */
+  text-decoration: none; /* Remove underline */
+  flex: 1;
+}
+
+ul li a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .navbar .right {
+    flex-direction: column;
+  }
+
+  .navbar a,
+  .navbar button {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .navbar input[type="text"] {
+    padding: 6px 8px;
+    margin-right: 0;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar a,
+  .navbar button {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .navbar input[type="text"] {
+    padding: 4px 6px;
+    width: 100%;
+  }
+}

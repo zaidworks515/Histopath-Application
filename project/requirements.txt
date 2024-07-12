@@ -7,4 +7,6 @@ opencv-python
 opencv-contrib-python
 opencv-python-headless
 Werkzeug
-flask-wtf flask-bcrypt
+flask-wtf 
+Flask-Bcrypt
+db-sqlite3

@@ -1,3 +1,15 @@
+.content {
+    background-image: url('maroon bg 2.png'); /* Ensure the correct path to the image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-width: 300px;
+    max-height: 200px;
+    padding: 15px; /* Optional, to ensure the content has some padding */
+}
+
+
+
 /* General Styling */
 body {
     font-family: Arial, sans-serif;
@@ -105,4 +117,8 @@ textarea {
 
 #logout:hover {
     background-color: #d32f2f; /* Darker red on hover */
+}
+
+.hide-for-pdf {
+    display: none;
 }
