@@ -14,7 +14,7 @@ import tensorflow as tf
 from werkzeug.utils import secure_filename
 
 
-
+input_image_save = 'static/input/'
 UPLOAD_FOLDER = 'database/'
 ALLOWED_EXTENSIONS = {'pdf'}
 
@@ -25,7 +25,6 @@ app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['SUPPRESS_EXCEPTIONS'] = True
 app.config['SECRET_KEY'] = 'dr. application'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 bcrypt = Bcrypt(app)
@@ -86,6 +85,10 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # Check if the user is already logged in
+    if 'user' in session:
+        return redirect(url_for('home'))
+    
     form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data
@@ -95,7 +98,8 @@ def login():
             session['user'] = user
             return redirect(url_for('home'))
         else:
-            flash('Invalid username or password. Please try again.', 'danger')
+            flash('Invalid username or password. Please try again.', 'error')
+    
     return render_template('login.html', title='Login', form=form)
 
 
@@ -131,9 +135,6 @@ def upload_pdf():
         user = session['user']
         username = user.get('username')
         mr_number = request.form.get('mr_number')  # Get MR number from the form data
-        user_directory = os.path.join(app.config['UPLOAD_FOLDER'], f"{username}_directory")
-        if not os.path.exists(user_directory):
-            os.makedirs(user_directory)
         if 'pdf' not in request.files:
             return 'No file part', 400
         file = request.files['pdf']
@@ -183,8 +184,7 @@ def records():
         return render_template('records.html', username=username, files=files, search_term=search_term)
     else:
         return redirect(url_for('login'))
-    
-    
+
     
 @app.route('/view_pdf/<int:pdf_id>')
 def view_pdf(pdf_id):
@@ -218,12 +218,13 @@ def model_implementation(image):
         model = g.model
         model.allocate_tensors()
         input_image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
-        input_image_rgb = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
-        input_image_normalized = input_image_rgb.astype(np.float32) / 255.0
+        input_image_normalized = input_image.astype(np.float32) / 255.0
         input_image_array = np.expand_dims(input_image_normalized, axis=0)
+        
         input_details = model.get_input_details()
         output_details = model.get_output_details()
         model.set_tensor(input_details[0]['index'], input_image_array)
+
         model.invoke()
         results = model.get_tensor(output_details[0]['index'])
         model_output = np.argmax(results)

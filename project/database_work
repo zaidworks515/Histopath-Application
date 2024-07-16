@@ -1,0 +1,153 @@
+import sqlite3
+import os
+
+
+# # Function to initialize database with tables
+# def init_db():
+#     conn = sqlite3.connect('database/db.sqlite')
+#     cursor = conn.cursor()
+    
+#     # Create users table
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS users (
+#         username TEXT PRIMARY KEY,
+#         password TEXT NOT NULL
+#     )
+#     ''')
+    
+#     # Create pdf_files table
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS pdf_files (
+#         id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         username TEXT NOT NULL,
+#         filename TEXT NOT NULL,
+#         pdf BLOB NOT NULL,
+#         FOREIGN KEY (username) REFERENCES users (username)
+#     )
+#     ''')
+    
+#     conn.commit()
+#     conn.close()
+
+# # Call init_db() to create tables if they don't exist
+# init_db()
+
+
+# def insert_pdf(db_path, username, filename, pdf_data):
+#     conn = sqlite3.connect(db_path)
+#     cursor = conn.cursor()
+
+#     # Check if the filename already exists for the user
+#     cursor.execute("SELECT COUNT(*) FROM pdf_files WHERE username = ? AND filename = ?", (username, filename))
+#     count = cursor.fetchone()[0]
+
+#     if count > 0:
+#         # If filename exists, update it with a counter
+#         base, extension = filename.rsplit('.', 1)
+#         counter = 1
+#         new_filename = f"{base}_{counter}.{extension}"
+#         while True:
+#             cursor.execute("SELECT COUNT(*) FROM pdf_files WHERE username = ? AND filename = ?", (username, new_filename))
+#             count = cursor.fetchone()[0]
+#             if count == 0:
+#                 break
+#             counter += 1
+#             new_filename = f"{base}_{counter}.{extension}"
+#         filename = new_filename
+
+#     # Insert the PDF into the database
+#     cursor.execute("INSERT INTO pdf_files (username, filename, pdf) VALUES (?, ?, ?)", (username, filename, pdf_data))
+#     conn.commit()
+#     conn.close()
+
+
+
+
+import os
+
+
+def retrieve_pdf(db_path, username, pdf_id=None, search_term='123123.pdf', save_path='Histopath-Application/project'):
+    try:
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+
+        if pdf_id:
+            cursor.execute("SELECT filename, pdf FROM pdf_files WHERE id = ? AND username = ?", (pdf_id, username))
+        elif search_term:
+            cursor.execute("SELECT filename, pdf FROM pdf_files WHERE username = ? AND filename LIKE ?", (username, f"%{search_term}%"))
+        else:
+            cursor.execute("SELECT filename, pdf FROM pdf_files WHERE username = ?", (username,))
+
+        rows = cursor.fetchall()
+
+        for filename, pdf_data in rows:
+            # Save the PDF to local drive
+            save_filename = os.path.join(save_path, filename)
+            with open(save_filename, 'wb') as f:
+                f.write(pdf_data)
+
+        conn.close()
+        return True  # Return True to indicate successful saving
+    except sqlite3.Error as e:
+        print(f"SQLite error in retrieve_pdf: {e}")
+        return False  # Return False or handle error as needed
+    
+retrieve_pdf(db_path='Histopath-Application/project/database/db.sqlite', username='admin')
+
+
+    
+     
+
+
+
+# Test the function
+# data = retrieve_pdf('database/db.sqlite', 'admin')
+# print(data)
+
+# def delete_pdf(db_path, username, pdf_ids):
+#     conn = sqlite3.connect(db_path)
+#     cursor = conn.cursor()
+#     affected_rows = 0
+    
+#     for pdf_id in pdf_ids:
+#         cursor.execute("DELETE FROM pdf_files WHERE id = ? AND username = ?", (pdf_id, username))
+#         affected_rows += cursor.rowcount
+    
+#     conn.commit()
+#     conn.close()
+    
+#     return affected_rows
+
+
+
+# def register_user(username, password):
+#     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+#     conn = sqlite3.connect('database/db.sqlite')
+#     cursor = conn.cursor()
+    
+#     # Insert new user
+#     try:
+#         cursor.execute('''
+#         INSERT INTO users (username, password)
+#         VALUES (?, ?)
+#         ''', (username, hashed_password))
+#         conn.commit()
+#     except sqlite3.IntegrityError:
+#         conn.close()
+#         return False  # Integrity error, though this should not happen due to previous check
+    
+#     conn.close()
+#     return True
+
+
+# def verify_user(username, password):
+#     conn = sqlite3.connect('database/db.sqlite')
+#     cursor = conn.cursor()
+#     cursor.execute('SELECT username, password FROM users WHERE username = ?', (username,))
+#     user = cursor.fetchone()
+#     conn.close()
+    
+#     if user and check_password_hash(user[1], password):
+#         return {'username': user[0]}  # Return user dictionary with username
+#     return None
+

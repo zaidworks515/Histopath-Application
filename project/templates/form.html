@@ -8,16 +8,15 @@
     
     <link rel="icon" href="{{ url_for('static', filename='image/favicon2.ico') }}" type="image/x-icon">
     <style>
-        /* Additional CSS for specific styling */
         #uploadedPatientImagePreview {
-            max-width: 200px; /* Set a standard maximum width */
+            max-width: 200px; 
             height: auto;
-            display: none; /* Initially hide the image */
+            display: none; 
             margin-top: 10px;
         }
         
         .upload-label {
-            background-color: #3b8ecd; /* Light blue background for upload label */
+            background-color: #3b8ecd;
             color: white;
             padding: 8px 12px;
             border-radius: 5px;
@@ -25,45 +24,43 @@
             margin-left: 10px;
         }
     
-        /* Flex container for form groups */
+        
         .form-group-flex {
             display: flex;
-            flex-wrap: wrap; /* Allow items to wrap */
+            flex-wrap: wrap; 
             justify-content: space-between;
         }
     
-        /* Flex items (individual form groups) */
         .form-group-flex > .form-group {
-            flex-basis: calc(50% - 10px); /* 50% width for each item with margin */
-            margin-right: 10px; /* Adjust spacing between form groups */
-            margin-bottom: 10px; /* Adjust vertical spacing */
+            flex-basis: calc(50% - 10px); 
+            margin-right: 10px; 
+            margin-bottom: 10px; 
         }
     
-        /* Clearfix for form groups */
+        
         .form-group-flex::after {
             content: '';
-            flex: 0 0 100%; /* Force clear */
+            flex: 0 0 100%; 
         }
     
-        /* Interactive feedback */
         .form-group input[type="text"],
         .form-group input[type="number"],
         .form-group input[type="date"],
         .form-group select {
-            width: 100%; /* Full width for input fields */
-            padding: 10px; /* Preserve padding */
-            margin: 8px 0; /* Preserve margin */
-            border: 1px solid #ccc; /* Preserve border */
-            border-radius: 5px; /* Preserve border radius */
-            box-sizing: border-box; /* Ensure padding and border are included in width */
-            font-size: 14px; /* Adjust font size */
-            height: 40px; /* Adjust height as needed */
+            width: 100%; 
+            padding: 10px; 
+            margin: 8px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
+            font-size: 14px; 
+            height: 40px; 
         }
     
         .form-group input:focus,
         .form-group select:focus {
-            border-color: #3b8ecd; /* Highlight border color on focus */
-            box-shadow: 0 0 5px rgba(59, 142, 205, 0.5); /* Add shadow on focus */
+            border-color: #3b8ecd; 
+            box-shadow: 0 0 5px rgba(59, 142, 205, 0.5); 
         }
     
         .success-message {
@@ -224,7 +221,6 @@
         function validateForm() {
             let isValid = true;
 
-            // Validate name
             const name = document.getElementById('name').value.trim();
             if (name === '') {
                 document.getElementById('nameError').innerHTML = 'Name is required.';
@@ -233,7 +229,6 @@
                 document.getElementById('nameError').innerHTML = '';
             }
 
-            // Validate father/husband name
             const f_h_name = document.getElementById('f_h_name').value.trim();
             if (f_h_name === '') {
                 document.getElementById('f_h_nameError').innerHTML = 'Father/Husband name is required.';
@@ -242,7 +237,6 @@
                 document.getElementById('f_h_nameError').innerHTML = '';
             }
 
-            // Validate age
             const age = document.getElementById('age').value.trim();
             if (age === '') {
                 document.getElementById('ageError').innerHTML = 'Age is required.';
@@ -251,7 +245,6 @@
                 document.getElementById('ageError').innerHTML = '';
             }
 
-            // Validate gender
             const gender = document.getElementById('gender').value.trim();
             if (gender === 'none') {
                 document.getElementById('genderError').innerHTML = 'Please select a gender.';
@@ -260,7 +253,6 @@
                 document.getElementById('genderError').innerHTML = '';
             }
 
-            // Validate MR number
             const mr_number = document.getElementById('mr_number').value.trim();
             if (mr_number === '') {
                 document.getElementById('mr_numberError').innerHTML = 'MR. No. is required.';
@@ -269,7 +261,6 @@
                 document.getElementById('mr_numberError').innerHTML = '';
             }
 
-            // Validate comorbids
             const comorbirds = document.getElementById('comorbirds').value.trim();
             if (comorbirds === '') {
                 document.getElementById('comorbirdsError').innerHTML = 'Comorbids are required.';
@@ -278,7 +269,6 @@
                 document.getElementById('comorbirdsError').innerHTML = '';
             }
 
-            // Validate presenting complaint
             const presenting_complain = document.getElementById('presenting_complain').value.trim();
             if (presenting_complain === '') {
                 document.getElementById('presenting_complainError').innerHTML = 'Presenting complaint is required.';
@@ -287,7 +277,6 @@
                 document.getElementById('presenting_complainError').innerHTML = '';
             }
 
-            // Validate date of biopsy
             const date_of_biopsy = document.getElementById('date_of_biopsy').value.trim();
             if (date_of_biopsy === '') {
                 document.getElementById('date_of_biopsyError').innerHTML = 'Date of biopsy is required.';
@@ -296,7 +285,6 @@
                 document.getElementById('date_of_biopsyError').innerHTML = '';
             }
 
-            // Validate location of biopsy
             const location_of_biopsy = document.getElementById('location_of_biopsy').value.trim();
             if (location_of_biopsy === '') {
                 document.getElementById('location_of_biopsyError').innerHTML = 'Location of biopsy is required.';
@@ -305,7 +293,6 @@
                 document.getElementById('location_of_biopsyError').innerHTML = '';
             }
 
-            // Validate image
             const imageInput = document.getElementById('imageInput');
             if (imageInput.files.length === 0) {
                 document.getElementById('imageInputError').innerHTML = 'Please upload an image file.';
@@ -314,7 +301,6 @@
                 document.getElementById('imageInputError').innerHTML = '';
             }
 
-            // Return validity status
             return isValid;
         
             if (isValidForm()) {
@@ -326,8 +312,7 @@
         }
 
         function isValidForm() {
-            // Your existing validation logic
-            // Return true if form is valid, false otherwise
+            // Return true if form is valid, false otherwise.. leave this function as it is
         }
 
         function saveFormData() {
@@ -341,10 +326,10 @@
                 presenting_complain: document.getElementById('presenting_complain').value.trim(),
                 date_of_biopsy: document.getElementById('date_of_biopsy').value.trim(),
                 location_of_biopsy: document.getElementById('location_of_biopsy').value.trim(),
-                // Add more fields as needed
+                
             };
 
-            // Store form data in localStorage
+            
             localStorage.setItem('formData', JSON.stringify(formData));
         }
     </script>

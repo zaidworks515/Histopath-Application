@@ -1,53 +1,55 @@
-/* General Styling */
 body {
   margin: 0;
   padding: 0;
-  background-color: #f0f7fc; /* Light blue background */
-  color: #333; /* Text color */
+  background-color: #f0f7fc; 
+  color: #333; 
   font-family: 'Jost', sans-serif;
-  background: #b3d3ee; /* Fallback */
-  background-color: #89beec; /* Light blue background */
+  background: #b3d3ee; 
+  background-color: #89beec; 
   color: #333333;
-  background: white url('maroon bg 2.PNG') no-repeat center right fixed; /* Adjusted background position */
+  background: white url('maroon bg 2.png') no-repeat center right fixed; 
   -webkit-background-size: cover;
   background-size: cover;
 }
 
-/* Navbar Styling */
 .navbar {
-  background-color: #d3d3d3; /* Light grey navbar background */
+  background-color: #ad3232; 
   overflow: hidden;
-  padding: 2px 0; /* Reduced padding top and bottom */
-  position: fixed; /* Fixed position */
-  width: 100%; /* Full width */
-  top: 0; /* Align to top */
-  z-index: 1000; /* Ensure it's above other content */
+  padding: 2px 0; 
+  position: fixed; 
+  width: 100%; 
+  top: 0; 
+  z-index: 1000; 
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Space out items */
+  justify-content: space-between; 
 }
 
 .navbar a,
 .navbar button {
-  color: #333; /* Text color */
+  margin-left: 6px;
+  margin-right: 6px;
+  color: #333; 
   text-align: center;
-  padding: 6px 10px; /* Adjusted padding top and bottom */
+  padding: 6px 10px; 
   text-decoration: none;
-  font-size: 18px; /* Reduced font size */
-  background: none; /* Ensure no background is applied */
-  border: none; /* Remove border */
+  font-size: 18px; 
+  background: white; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .navbar a:hover,
 .navbar button:hover {
-  background-color: #ddd;
-  color: black;
+  background-color: #ad3232; 
+  color: white; 
 }
 
 .navbar .right {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Ensure items are evenly spaced */
+  justify-content: flex-end; 
 }
 
 .navbar .search-form {
@@ -57,80 +59,87 @@ body {
 }
 
 .navbar input[type="text"] {
-  padding: 4px 8px; /* Adjusted input padding to match button height */
+  padding: 4px 8px; 
   border-radius: 4px;
   border: 1px solid #ccc;
-  margin-right: 8px; /* Margin on the right side */
-  background-color: #f0f2f5; /* Facebook's input background */
-  transition: all 0.3s ease; /* Transition for background color change */
-  height: 25px; /* Ensure height matches button height */
+  margin-right: 8px; 
+  background-color: #f0f2f5; 
+  transition: all 0.3s ease; 
+  height: 25px; 
 }
 
 .navbar input[type="text"]:focus {
-  background-color: white; /* Change background on focus */
+  background-color: white; 
 }
 
 .navbar button {
-  padding: 6px 12px; /* Adjusted button padding */
+  padding: 6px 12px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 18px; /* Reduced font size */
+  font-size: 18px; 
   text-align: center;
   text-decoration: none;
-  transition: background-color 0.3s ease; /* Transition for background color change */
-  background-color: rgb(160, 156, 156); /* Green button similar to Facebook's */
-  color: white; /* Text color */
-  margin: 0 8px; /* Add margin */
+  transition: background-color 0.3s ease, color 0.3s ease; 
+  background-color: white; 
+  color: #333; 
+  margin: 0 8px; 
+  border: 1px solid #ccc; 
 }
 
 .navbar button:hover {
-  background-color: rgb(119, 116, 116); /* Darker green on hover */
+  background-color: #ad3232; 
+  color: white; 
 }
 
 .delete-button {
-  background-color: #f02849; /* Red button */
-  color: white; /* Text color */
+  background-color: white; 
+  color: #333; 
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .delete-button:hover {
-  background-color: #d81c3f; /* Darker red on hover */
+  background-color: #ad3232; 
+  color: white; 
 }
 
 .logout-btn {
-  background-color: #f44336; /* Red button */
-  color: white; /* Text color */
-  padding: 8px 14px; /* Adjusted button padding */
-  border: none;
-  border-radius: 5px;
+  background-color: white; 
+  color: #333; 
+  padding: 8px 14px; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
   cursor: pointer;
-  font-size: 14px; /* Reduced font size */
+  font-size: 14px; 
   text-align: center;
   text-decoration: none;
-  transition: background-color 0.3s ease; /* Transition for background color change */
+  transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .logout-btn:hover {
-  background-color: #880808; /* Darker red on hover */
+  background-color: #ad3232; 
+  color: white; 
 }
 
-/* Main Content Styling */
+
 h1 {
-  color: black; /* Black text color */
-  margin-top: 80px; /* Adjusted margin top */
+  color: black; 
+  margin-top: 80px; 
   text-align: center;
 }
 
 ul {
-  list-style-type: none; /* Remove list bullets */
+  list-style-type: none; 
   padding: 0;
 }
 
 ul li {
-  background-color: #ffffff; /* White background for each list item */
-  border-radius: 8px; /* Rounded corners */
-  margin: 10px 0; /* Margin top and bottom */
-  padding: 15px; /* Padding inside each list item */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  background-color: #ffffff; 
+  border-radius: 8px; 
+  margin: 10px 0; 
+  padding: 15px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -141,16 +150,15 @@ ul li input[type="checkbox"] {
 }
 
 ul li a {
-  color: #385898; /* Link color similar to Facebook's */
-  text-decoration: none; /* Remove underline */
+  color: #385898; 
+  text-decoration: none; 
   flex: 1;
 }
 
 ul li a:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline; 
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .navbar .right {
     flex-direction: column;

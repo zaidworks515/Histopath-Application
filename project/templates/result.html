@@ -13,62 +13,50 @@
     
     
     <style>
-        /* Additional CSS for specific styling */
         #uploadedPatientImagePreview {
-            max-width: 200px; /* Set a standard maximum width */
+            max-width: 200px; 
             height: auto;
-            display: none; /* Initially hide the image */
+            display: none; 
             margin-top: 10px;
         }
         
-        .upload-label {
-            background-color: #3b8ecd; /* Light blue background for upload label */
-            color: white;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-    
-        /* Flex container for form groups */
+        
         .form-group-flex {
             display: flex;
-            flex-wrap: wrap; /* Allow items to wrap */
+            flex-wrap: wrap; 
             justify-content: space-between;
         }
     
-        /* Flex items (individual form groups) */
         .form-group-flex > .form-group {
-            flex-basis: calc(50% - 10px); /* 50% width for each item with margin */
-            margin-right: 10px; /* Adjust spacing between form groups */
-            margin-bottom: 10px; /* Adjust vertical spacing */
+            flex-basis: calc(50% - 10px); 
+            margin-right: 10px; 
+            margin-bottom: 10px; 
         }
     
-        /* Clearfix for form groups */
         .form-group-flex::after {
             content: '';
-            flex: 0 0 100%; /* Force clear */
+            flex: 0 0 100%; 
         }
     
-        /* Interactive feedback */
+        
         .form-group input[type="text"],
         .form-group input[type="number"],
         .form-group input[type="date"],
         .form-group select {
-            width: 100%; /* Full width for input fields */
-            padding: 10px; /* Preserve padding */
-            margin: 8px 0; /* Preserve margin */
-            border: 1px solid #ccc; /* Preserve border */
-            border-radius: 5px; /* Preserve border radius */
-            box-sizing: border-box; /* Ensure padding and border are included in width */
-            font-size: 14px; /* Adjust font size */
-            height: 40px; /* Adjust height as needed */
+            width: 100%; 
+            padding: 10px; 
+            margin: 8px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
+            font-size: 14px; 
+            height: 40px; 
         }
     
         .form-group input:focus,
         .form-group select:focus {
-            border-color: #3b8ecd; /* Highlight border color on focus */
-            box-shadow: 0 0 5px rgba(59, 142, 205, 0.5); /* Add shadow on focus */
+            border-color: #3b8ecd; 
+            box-shadow: 0 0 5px rgba(59, 142, 205, 0.5); 
         }
     
         .success-message {
@@ -87,8 +75,8 @@
 </head>
 <body>
     <div class="content">
-        <div style="text-align: left; margin-top: 30px; margin-bottom: 20px; margin-left: 3px;">
-            <img src="{{ url_for('static', filename='css/22-removebg-preview.png') }}" alt="Logo" style="max-width: 300px; max-height: 200px;">
+        <div style="text-align: left; margin-top: 20px; margin-bottom: -30px; margin-left: 3px;">
+            <img src="{{ url_for('static', filename='css/22-removebg-preview.png') }}" alt="Logo" style="max-width: 350px; max-height: 220px;">
         </div>   
     
         <h1>Patient Report</h1>
@@ -168,7 +156,6 @@
 
 <br>
 <br>
-<!-- Hidden input for MR number -->
     <input type="hidden" id="mr_number" value="{{ request.form.get('mr_number') }}">
 
     
@@ -193,8 +180,8 @@
      
       
     </div>
-    <div style="position: fixed; bottom: 10px; right: 10px;">
-        <a href="{{ url_for('logout') }}" class="fancy" style="text-decoration: none; color: #880808; background-color: red; padding: 10px 20px; border: 2px solid black; border-radius: 5px;">
+    <div style="position: fixed; bottom: 0.001rem; right: 10px;">
+        <a href="{{ url_for('logout') }}" class="fancy" style="text-decoration: none; color: #880808; background-color: red;  border: 2px solid black; border-radius: 5px;">
             <span class="text">Logout</span>
         </a>
     </div>
@@ -203,12 +190,11 @@
 
 
 <script>
-    // Attach click event to download PDF button
- // Attach click event to download PDF button
+
     document.getElementById('downloadPdf').addEventListener('click', function (event) {
         event.preventDefault();
         console.log('Creating PDF...');
-        CreatePDFfromHTML(); // Call the function from external script
+        CreatePDFfromHTML(); 
 });
 
 </script>

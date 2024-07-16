@@ -8,10 +8,10 @@ function CreatePDFfromHTML() {
     var PDF_Width = HTML_Width + (top_left_margin * 2);
     var PDF_Height = PDF_Width * 1;
 
-    // Set the height of the page based on the content height
+    // Set height
     var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
 
-    // Render HTML content to canvas
+    // Rendering 
     html2canvas(contentElement).then(function (canvas) {
         var imgData = canvas.toDataURL("image/jpeg", 1.0);
         var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
@@ -29,16 +29,16 @@ function CreatePDFfromHTML() {
                 pdf.addImage(imgData, 'JPEG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), HTML_Width, HTML_Height);
             }
 
-            // Save the PDF locally
+            
             pdf.save("patient_report.pdf");
 
-            // Send the PDF to the server
+            // Sending PDF to the cloud
             var pdfBlob = pdf.output('blob');
-            var mrNumber = document.getElementById('mr_number').value; // Get MR number
+            var mrNumber = document.getElementById('mr_number').value; 
 
             var formData = new FormData();
             formData.append('pdf', pdfBlob, 'patient_report.pdf');
-            formData.append('mr_number', mrNumber); // Append MR number
+            formData.append('mr_number', mrNumber); 
 
             fetch('/upload_pdf', {
                 method: 'POST',

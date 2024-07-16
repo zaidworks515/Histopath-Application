@@ -1,81 +1,73 @@
 .content {
-    background-image: url('maroon bg 2.png'); /* Ensure the correct path to the image */
+    background-image: url('maroon bg 2.png'); 
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     max-width: 300px;
     max-height: 200px;
-    padding: 15px; /* Optional, to ensure the content has some padding */
+    padding: 15px; 
 }
 
 
 
-/* General Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f7fc; /* Light blue background */
-    color: #333; /* Text color */
+    background-color: #f0f7fc; 
+    color: #333; 
 }
 
 h1, h2, h3, h4 {
-    color: #3b8ecd; /* Light blue text color */
-    text-align: center; /* Center headings */
+    color: rgb(160, 156, 156); 
+    text-align: center; 
     margin-top: 20px;
 }
 
-/* Content Styling */
 #complete_page {
-    margin: 20px auto; /* Center align the content */
-    max-width: 800px; /* Limit content width */
+    margin: 20px auto; 
+    max-width: 800px; 
     padding: 20px;
-    background-color: #ffffff; /* White background for content */
+    background-color: #ffffff; 
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 #content {
-    padding: 20px; /* Padding inside content */
+    padding: 20px; 
 }
 
-
-
-/* Image Styling */
 img {
-    display: block; /* Center align images */
+    display: block; 
     margin: 0 auto;
     max-width: 100%;
     height: auto;
     margin-top: 20px;
 }
 
-/* Form Styling */
 form {
-    text-align: center; /* Center align form elements */
+    text-align: center; 
     margin-top: 20px;
 }
 
 textarea {
-    width: 100%; /* Full width textarea */
+    width: 100%; 
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
 }
 
-/* Button Container Styling */
 .buttons-container {
-    display: flex; /* Flex container for buttons */
-    justify-content: center; /* Center align buttons horizontally */
+    display: flex; 
+    justify-content: center; 
     margin-top: 20px;
 }
 
-/* Button Styling */
 #downloadPdf,
 #new_report,
 #logout {
-    flex: 1; /* Equal width for all buttons */
+    flex: 1;
     padding: 12px 20px;
     border: none;
     border-radius: 5px;
@@ -85,38 +77,38 @@ textarea {
     text-align: center;
     text-decoration: none;
     transition: background-color 0.3s ease;
-    width: 500px; /* Fixed width */
-    height: 50px; /* Fixed height */
+    width: 500px; 
+    height: 50px; 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #downloadPdf {
-    background-color: #3b8ecd; /* Light blue button */
+    background-color: #3b8ecd; 
     color: white;
 }
 
 #downloadPdf:hover {
-    background-color: #1e70bf; /* Darker blue on hover */
+    background-color: #1e70bf; 
 }
 
 #new_report {
-    background-color: #8bc34a; /* Light green button */
+    background-color: #8bc34a;
     color: white;
 }
 
 #new_report:hover {
-    background-color: #689f38; /* Darker green on hover */
+    background-color: #689f38; 
 }
 
 #logout {
-    background-color: #f44336; /* Red button */
+    background-color: #f44336; 
     color: white;
 }
 
 #logout:hover {
-    background-color: #d32f2f; /* Darker red on hover */
+    background-color: #d32f2f; 
 }
 
 .hide-for-pdf {

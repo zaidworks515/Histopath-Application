@@ -1,43 +1,41 @@
-/* General Styling */
 body {
     margin: 0;
     padding: 0;
-    background-color: #f0f7fc; /* Light blue background */
-    color: #333; /* Text color */
+    background-color: #f0f7fc; 
+    color: #333; 
     font-family: 'Jost', sans-serif;
-	background: #b3d3ee; /* Fallback */
-	background-color: #89beec; /* Light blue background */
+	background: #b3d3ee; 
+	background-color: #89beec;
 	color: #333333;
-	background: white url('maroon bg 2.PNG') no-repeat center right fixed; /* Adjusted background position */
+	background: white url('maroon bg 2.png') no-repeat center right fixed; 
 	-webkit-background-size: cover;
 	background-size: cover;
 }
 
 
 h1 {
-    color: #3b8ecd; /* Light blue text color */
-    text-align: center; /* Center headings */
+    color: rgb(160, 156, 156); 
+    text-align: center; 
     margin-top: 20px;
 }
 
-/* Form Styling */
 .patient-form {
-    margin: 20px auto; /* Center align and provide space around the form */
-    max-width: 800px; /* Increased form width */
+    margin: 20px auto;
+    max-width: 800px; 
     padding: 20px;
-    background-color: #ffffff; /* White background for form */
+    background-color: #ffffff; 
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 .form-group {
-    margin-bottom: 20px; /* Increased margin for better separation */
+    margin-bottom: 20px; 
 }
 
 label {
-    display: block; /* Ensure labels are on separate lines */
-    margin-bottom: 8px; /* Smaller margin below labels */
-    font-weight: bold; /* Make labels bold for emphasis */
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: bold; 
 }
 
 input[type="text"],
@@ -45,59 +43,58 @@ input[type="number"],
 select,
 input[type="date"],
 input[type="file"] {
-    width: 100%; /* Full width inputs */
-    padding: 10px; /* Add padding for better touch interaction */
-    border: 1px solid #ccc; /* Light border */
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
     border-radius: 5px;
-    box-sizing: border-box; /* Include padding in width calculation */
-    font-size: 14px; /* Adjust font size */
+    box-sizing: border-box; 
+    font-size: 14px; 
 }
 
 select {
-    appearance: none; /* Remove default appearance on select */
-    padding-right: 30px; /* Add space for custom dropdown indicator */
+    appearance: none; 
+    padding-right: 30px; 
     background-image: url('data:image/svg+xml;utf8,<svg fill="%233B8ECD" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Custom dropdown indicator */
     background-repeat: no-repeat;
     background-position: right 10px center;
 }
 
-/* Button Styling */
 .btn {
     padding: 12px 20px;
     border: none;
     border-radius: 5px;
     color: white;
     cursor: pointer;
-    background-color: #3b8ecd; /* Light blue button */
-    width: 100%; /* Full width button */
-    text-align: center; /* Center text */
-    font-size: 16px; /* Font size for buttons */
-    margin-top: 20px; /* Increased space above button */
-    text-decoration: none; /* Remove underline for links */
-    display: block; /* Ensure full width */
+    background-color: #3b8ecd; 
+    width: 100%; 
+    text-align: center; 
+    font-size: 16px; 
+    margin-top: 20px; 
+    text-decoration: none; 
+    display: block; 
     transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #1e70bf; /* Darker blue on hover */
+    background-color: #1e70bf; 
 }
 
-/* Error Message Styling */
+
 #errorMessage {
-    color: red;
+    color:  #ad3232;
     margin-top: 10px;
-    font-size: 14px; /* Adjust font size */
+    font-size: 14px; 
 }
 
-/* Upload Label Styling */
+
 .upload-label {
-    background-color: #3b8ecd; /* Light blue background for upload label */
+    background-color: #3b8ecd; 
     color: white;
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
-    font-size: 14px; /* Adjust font size */
+    font-size: 14px; 
 }
 
 .button {
@@ -142,12 +139,13 @@ select {
   }
   
   .button:hover {
-    box-shadow: inset 0px 0px 25px #8b0000;
+    background-color:  #ad3232;
+    color: #ccc;
   }
 
   .file-upload-form {
-    padding: 10px 20px; /* Adjust padding for better proportion */
-    border-radius: 20px; /* Adjust border radius */
+    padding: 10px 20px; 
+    border-radius: 20px; 
     margin: 0 auto;
     width: fit-content;
     height: fit-content;
@@ -191,16 +189,15 @@ select {
   
 
 
-/* Media Queries for Responsive Design */
 @media only screen and (max-width: 768px) {
     .patient-form {
-        padding: 15px; /* Adjust padding for smaller screens */
+        padding: 15px; 
     }
 }
 
 @media only screen and (max-width: 480px) {
     h1 {
-        font-size: 24px; /* Adjust heading font size for smaller screens */
+        font-size: 24px; 
     }
 
   

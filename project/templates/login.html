@@ -1,63 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 <head>
+    <meta charset="utf-8">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ls.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" type="text/css" href="static/css/ls2.css">
 </head>
 <body>
-    <div class="main">
-        <input type="checkbox" id="chk" aria-hidden="true">
-
-        <div class="signup">
-            <!-- Signup content -->
+    <div class="wrapper">
+        <div class="title">
+            Login Form
         </div>
-
-        <div class="login">
-            <form method="POST" action="{{ url_for('login') }}">
-                <label for="chk" aria-hidden="true">Login</label>
-                
-                
-                {{ form.hidden_tag() }}
-
-                {{ form.username(class_="form-control", size=20) }}
-
-                {{ form.password(class_="form-control", size=20) }}
-
-                {{ form.submit(class_="btn") }}
+        <form method="POST" action="{{ url_for('login') }}">
+            {{ form.hidden_tag() }}
+            <div class="field">
+                {{ form.username(class_="form-input") }}
+            </div>
+            <div class="field">
+                {{ form.password(class_="form-input") }}
+            </div>
+            <br>
             
-
-                <br>
-                
-                <div style="text-align: center;">
-                    <span>Don't have an account? </span><a href="{{ url_for('register') }}">Signup</a>
-                </div>
-                
-            </form>
-
-        </div>
+            <div class="field">
+                {{ form.submit(class_="btn") }}
+            </div>
+            <div class="signup-link">
+                Not a member? <a href="{{ url_for('register') }}">Signup now</a>
+            </div>
+            <div class="message">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </form>
     </div>
-        
-        <div class="message">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
-    </div>
-
     <script>
-        // Function to fade in an element
         function fadeIn(element) {
             element.style.opacity = 0;
             element.style.display = 'block';
-    
+        
             (function fade() {
                 var val = parseFloat(element.style.opacity);
                 if (!((val += 0.1) > 1)) {
@@ -66,11 +52,10 @@
                 }
             })();
         }
-    
-        // Function to fade out an element
+        
         function fadeOut(element) {
             element.style.opacity = 1;
-    
+        
             (function fade() {
                 if ((element.style.opacity -= 0.1) < 0) {
                     element.style.display = 'none';
@@ -79,8 +64,7 @@
                 }
             })();
         }
-    
-        // Show flash message with fade-in effect
+        
         document.addEventListener('DOMContentLoaded', function() {
             let messageDiv = document.querySelector('.message');
             if (messageDiv.innerHTML.trim() !== '') {
@@ -90,7 +74,7 @@
                 }, 3000); // Fade out after 3 seconds
             }
         });
-    </script>
-    
+        </script>
+
 </body>
 </html>
