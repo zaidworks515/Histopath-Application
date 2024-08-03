@@ -1,5 +1,5 @@
 flask
-tensorflow==2.13.1
+tensorflow
 Python-IO
 pybase64
 numpy

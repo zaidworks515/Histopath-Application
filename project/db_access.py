@@ -2,46 +2,41 @@ import sqlite3
 from flask import Flask
 from flask_bcrypt import Bcrypt, check_password_hash
 
-# Initialize Flask and Bcrypt
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
-# Function to initialize database with tables
-def init_db():
-    conn = sqlite3.connect('database/db.sqlite')
-    cursor = conn.cursor()
+# def init_db():
+#     conn = sqlite3.connect('database/db.sqlite')
+#     cursor = conn.cursor()
     
-    # Create users table
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS users (
-        username TEXT PRIMARY KEY,
-        password TEXT NOT NULL
-    )
-    ''')
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS users (
+#         username TEXT PRIMARY KEY,
+#         password TEXT NOT NULL
+#     )
+#     ''')
     
-    # Create pdf_files table
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS pdf_files (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT NOT NULL,
-        filename TEXT NOT NULL,
-        pdf BLOB NOT NULL,
-        FOREIGN KEY (username) REFERENCES users (username)
-    )
-    ''')
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS pdf_files (
+#         id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         username TEXT NOT NULL,
+#         filename TEXT NOT NULL,
+#         pdf BLOB NOT NULL,
+#         FOREIGN KEY (username) REFERENCES users (username)
+#     )
+#     ''')
     
-    conn.commit()
-    conn.close()
+#     conn.commit()
+#     conn.close()
+    
 
-# Call init_db() to create tables if they don't exist
-init_db()
+# init_db()
 
 
 def insert_pdf(db_path, username, filename, pdf_data):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    # Check if the filename already exists for the user
     cursor.execute("SELECT COUNT(*) FROM pdf_files WHERE username = ? AND filename = ?", (username, filename))
     count = cursor.fetchone()[0]
 
@@ -59,7 +54,6 @@ def insert_pdf(db_path, username, filename, pdf_data):
             new_filename = f"{base}_{counter}.{extension}"
         filename = new_filename
 
-    # Insert the PDF into the database
     cursor.execute("INSERT INTO pdf_files (username, filename, pdf) VALUES (?, ?, ?)", (username, filename, pdf_data))
     conn.commit()
     conn.close()
@@ -117,7 +111,7 @@ def register_user(username, password):
         conn.commit()
     except sqlite3.IntegrityError:
         conn.close()
-        return False  # Integrity error, though this should not happen due to previous check
+        return False  
     
     conn.close()
     return True

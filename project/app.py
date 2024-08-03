@@ -218,7 +218,8 @@ def model_implementation(image):
         model = g.model
         model.allocate_tensors()
         input_image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
-        input_image_normalized = input_image.astype(np.float32) / 255.0
+        input_image_rgb = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
+        input_image_normalized = input_image_rgb.astype(np.float32) / 255.0
         input_image_array = np.expand_dims(input_image_normalized, axis=0)
         
         input_details = model.get_input_details()
@@ -228,7 +229,7 @@ def model_implementation(image):
         model.invoke()
         results = model.get_tensor(output_details[0]['index'])
         model_output = np.argmax(results)
-        model_prediction = 'Normal' if model_output == 0 else 'OSCS'
+        model_prediction = 'Normal' if model_output == 0 else 'OSCC'
         input_image_path = os.path.join('static/input/', 'input_image.jpg')
         cv2.imwrite(input_image_path, input_image)
         return input_image_path, model_prediction
@@ -243,7 +244,7 @@ def prediction():
         try:
             with thread_lock:
                 loaded_image = request.files['image']
-
+                
                 image_stream = loaded_image.stream
 
                 image_bytes = np.asarray(bytearray(image_stream.read()), dtype=np.uint8)
